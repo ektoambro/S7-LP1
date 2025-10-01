@@ -6,11 +6,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Test fou</h1>
+    <h1>Evil Genius of Gambling.org</h1>
+    <div style="text-align:center">
     <button id="clickMe">Click me</button>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-    <img src="static/images.jpg" alt="HTML5 Icon" style="width:1440px;height:1080px;"> 
-    <h3><iframe width="110" height="200" src="https://www.myinstants.com/instant/fart-with-reverb-17715/embed/" frameborder="0" scrolling="no"></iframe></h3>
-    <h4><a href="/about">link text</a></h4>
+</div>
+<div class="form-container">
+  <form action="/submit" method="POST">
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname" value="John"><br>
+    
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" value="Doe"><br><br>
+    <div style="text-align:center">
+        <input type="submit" value="Submit">
+    </div>
+  </form>
+</div>
+</form>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

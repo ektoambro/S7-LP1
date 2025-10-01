@@ -11,6 +11,18 @@ def about():
 
  return render_template("about.html") 
 
+from flask import Flask, request, render_template 
+
+@app.route('/submit', methods=["POST"]) 
+
+def submit(): 
+
+    username = request.form['fname'] 
+
+    message = request.form['lname'] 
+
+    return f"You are successfully registered as {username} {message}"
+
 if __name__ == "__main__":
     app.run(debug=True)
 
