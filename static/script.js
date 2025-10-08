@@ -1,3 +1,3 @@
 document.getElementById("clickMe").addEventListener("click", () => {
-    alert("Guilherme is a dork");
+    alert("You successfully traded your soul for 20 free spins");
 });

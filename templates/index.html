@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Magnificient</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magnificient</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
-    <h1>Evil Genius of Gambling.org</h1>
-    <div style="text-align:center">
-    <button id="clickMe">Click me</button>
-</div>
-<div class="form-container">
-  <form action="/submit" method="POST">
-    <label for="fname">First name:</label><br>
-    <input type="text" id="fname" name="fname" value="John"><br>
-    
-    <label for="lname">Last name:</label><br>
-    <input type="text" id="lname" name="lname" value="Doe"><br><br>
-    <div style="text-align:center">
+  <h1>Evil Genius of Gambling.org</h1>
+  <div style="text-align:center">
+    <button id="clickMe">Trade Soul</button>
+  </div>
+  <div class="form-container">
+    <form action="/submit" method="POST">
+      <label for="ine">Please fill in your credentials</label><br>
+      <label for="fname">Email :</label><br>
+      <input type="text" id="fname" name="fname"><br>
+
+      <label for="lname">Password:</label><br>
+      <input type="text" id="lname" name="lname"><br><br>
+
+      <div style="text-align:center">
         <input type="submit" value="Submit">
-    </div>
+      </div>
+    </form>
+  </div>
   </form>
-</div>
-</form>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+  <div class="container">
+    <div class="row">
+      <div class="col mx-1 btn">
+        credits and ownership
+      </div>
+      <div class="col mx-1 btn">
+        replace
+      </div>
+      <div class="col mx-1 btn">
+        replace
+      </div>
+    </div>
+  </div>
+
+  <h2><iframe
+      src="https://wheeldecide.com/e.php?c1=Nothing&c2=Nothing&c3=Nothing&c4=Nothing&c5=Kill+Yourself&c6=1%E2%82%AC&cols=ff0000,813e3e&t=Super+Wheel+of+Doom&time=5"
+      width="500" height="500" scrolling="no" frameborder="0"></iframe></h2>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>

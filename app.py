@@ -21,7 +21,7 @@ def submit():
 
     message = request.form['lname'] 
 
-    return f"You are successfully registered as {username} {message}"
+    return f"You are successfully logged on {username} "
 
 if __name__ == "__main__":
     app.run(debug=True)

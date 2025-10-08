@@ -24,8 +24,24 @@ p {
   margin-top: 20px;
 }
 form {
-  background-color: rgb(163, 163, 163);
+  background: radial-gradient(circle, rgb(139, 139, 139) 0%, rgb(180, 159, 159) 60%, rgb(221, 221, 221) 100%);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+h2 {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.col {
+  border: 2px solid rgb(155, 155, 155);
+  border-spacing: 150px;
+  background-color: rgb(104, 104, 104);
+  color:rgb(255, 255, 255);
+  border-radius: 8px;
+  padding: 5px;
+}
+
