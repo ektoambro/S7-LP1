@@ -50,11 +50,19 @@ h3 {
 .navbar {
   border: none;
   border-spacing: 150px;
-  background: linear-gradient(90deg, rgb(156, 156, 156) 0%, rgb(221, 221, 221) 60%, rgb(180, 159, 159) 100%);
+  background: linear-gradient(90deg, rgb(61, 61, 61) 0%, rgb(56, 56, 56) 60%, rgb(51, 51, 51) 100%);
   color:rgb(160, 40, 40);
   border-radius: 8px;
   padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.navbar a {
+  color: rgb(224, 224, 224) !important;
+}
+
+a:hover {
+  color: red !important;
 }

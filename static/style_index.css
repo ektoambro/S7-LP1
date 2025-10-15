@@ -1,0 +1,68 @@
+#clickMe {
+    color : rgb(58, 58, 58);
+    border-radius: 41%;
+}
+
+body {
+background: #050505;
+background: radial-gradient(circle, rgba(5, 5, 5, 1) 0%, rgba(99, 36, 36, 1) 60%, rgba(184, 0, 0, 1) 100%);
+}
+
+h1 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+}           
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+form {
+  background: radial-gradient(circle, rgb(139, 139, 139) 0%, rgb(180, 159, 159) 60%, rgb(221, 221, 221) 100%);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+    color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+h3 {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+    color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.navbar {
+  border: none;
+  border-spacing: 150px;
+  background: linear-gradient(90deg, rgb(61, 61, 61) 0%, rgb(56, 56, 56) 60%, rgb(51, 51, 51) 100%);
+  color:rgb(160, 40, 40);
+  border-radius: 8px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar a {
+  color: rgb(224, 224, 224) !important;
+}
+
+a:hover {
+  color: red !important;
+}
