@@ -34,14 +34,27 @@ h2 {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+    color: rgb(255, 255, 255);
+  text-align: center;
 }
 
-.col {
-  border: 2px solid rgb(155, 155, 155);
+h3 {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+    color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.navbar {
+  border: none;
   border-spacing: 150px;
-  background-color: rgb(104, 104, 104);
-  color:rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgb(156, 156, 156) 0%, rgb(221, 221, 221) 60%, rgb(180, 159, 159) 100%);
+  color:rgb(160, 40, 40);
   border-radius: 8px;
   padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
