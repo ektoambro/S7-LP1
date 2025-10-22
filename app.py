@@ -1,17 +1,20 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request# type: ignore
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("homepage.html")
 
 @app.route("/about") 
 def about(): 
 
  return render_template("about.html") 
 
-from flask import Flask, request, render_template 
+@app.route("/login") 
+def login(): 
+
+ return render_template("login.html") 
 
 @app.route('/submit', methods=["POST"]) 
 
