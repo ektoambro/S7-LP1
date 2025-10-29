@@ -1,6 +1,6 @@
 body {
-background: #5c5c5c;
-background: radial-gradient(circle, rgba(92, 92, 92, 1) 0%, rgba(64, 64, 64, 1) 50%, rgba(59, 59, 59, 1) 100%);
+  background: #5c5c5c;
+  background: radial-gradient(circle, rgb(53, 53, 53) 0%, rgb(56, 56, 56) 60%, rgb(34, 34, 34) 100%);
 }
 
 h1 {
@@ -11,43 +11,46 @@ h1 {
 p {
   font-family: 'Courier New', Courier, monospace;
   font-size: 20px;
-}           
+}
+
 .form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
+
 form {
- background: #c4c4c4;
-background: linear-gradient(90deg, rgba(196, 196, 196, 1) 0%, rgb(156, 156, 156) 50%, rgba(194, 194, 194, 1) 100%);
+  background: #c4c4c4;
+  background: linear-gradient(90deg, rgba(196, 196, 196, 1) 0%, rgb(156, 156, 156) 50%, rgba(194, 194, 194, 1) 100%);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
+
 h2 {
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   text-align: center;
 }
 
 h3 {
-    display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   text-align: center;
 }
 
 .navbar {
   border: none;
   border-spacing: 150px;
-  background: linear-gradient(90deg, rgb(61, 61, 61) 0%, rgb(56, 56, 56) 60%, rgb(51, 51, 51) 100%);
-  color:rgb(160, 40, 40);
+  background: radial-gradient(circle, rgb(61, 61, 61) 0%, rgb(56, 56, 56) 60%, rgb(51, 51, 51) 100%);
+  color: rgb(160, 40, 40);
   border-radius: 8px;
   padding: 5px;
   display: flex;
@@ -62,3 +65,18 @@ h3 {
 a:hover {
   color: red !important;
 }
+
+.card {
+  background: radial-gradient(circle, rgba(92, 92, 92, 1) 0%, rgba(64, 64, 64, 1) 50%, rgba(59, 59, 59, 1) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  color: rgb(255, 255, 255);
+  text-align: left;
+  border-spacing: 150px;
+}
+.card .btn {
+background-color: rgb(255, 255, 255);
+}
+
