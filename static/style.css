@@ -80,3 +80,92 @@ a:hover {
 background-color: rgb(255, 255, 255);
 }
 
+#wheel {
+  border: 10px solid #aaaaaa;
+  border-radius: 50%;
+  box-shadow:
+      0 0 25px rgba(255, 255, 255, 0.25),
+      inset 0 0 20px rgba(0, 0, 0, 0.6),
+      0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+/* ----------------------------- */
+/*       POINTER (CURSOR)       */
+/* ----------------------------- */
+
+.pointer {
+  width: 0;
+  height: 0;
+
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  border-bottom: 35px solid rgb(190, 40, 40);
+
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.6));
+  z-index: 50;
+}
+
+/* ----------------------------- */
+/*       SPIN BUTTON DESIGN     */
+/* ----------------------------- */
+
+#spinBtn {
+  margin-top: 25px;
+  padding: 12px 40px;
+  border: none;
+  outline: none;
+
+  background: linear-gradient(90deg, #d63d3d 0%, #c52222 50%, #d63d3d 100%);
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 22px;
+
+  box-shadow:
+      0 0 10px rgba(255, 0, 0, 0.4),
+      inset 0 0 5px rgba(255, 255, 255, 0.2);
+
+  transition: 0.25s ease;
+}
+
+#spinBtn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #ff4a4a 0%, #db2d2d 50%, #ff4a4a 100%);
+  box-shadow:
+      0 0 15px rgba(255, 0, 0, 0.6),
+      inset 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+#spinBtn:active {
+  transform: scale(0.97);
+}
+
+
+/* ----------------------------- */
+/*  OPTIONAL: MODAL THEME FIX   */
+/* ----------------------------- */
+
+.modal-content {
+  background: radial-gradient(circle, #4a4a4a 0%, #2c2c2c 100%);
+  color: white;
+  border-radius: 10px;
+  border: 1px solid #666;
+}
+
+.modal-header, .modal-footer {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary {
+  background-color: #7a7a7a !important;
+  border: none;
+}
+.btn-secondary:hover {
+  background-color: #8d8d8d !important;
+}

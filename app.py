@@ -16,6 +16,27 @@ def login():
 
  return render_template("login.html") 
 
+@app.route("/wheelspin") 
+def wheelspin(): 
+
+ return render_template("wheelspin.html") 
+
+@app.route("/roulette") 
+def roulette(): 
+
+ return render_template("roulette.html") 
+
+@app.route("/slots") 
+def slots(): 
+
+ return render_template("slots.html") 
+
+@app.route("/blackjack") 
+def blackjack(): 
+
+ return render_template("blackjack.html") 
+
+
 @app.route('/submit', methods=["POST"]) 
 
 def submit(): 
