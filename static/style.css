@@ -1,5 +1,4 @@
 body {
-  background: #5c5c5c;
   background: radial-gradient(circle, rgb(53, 53, 53) 0%, rgb(56, 56, 56) 60%, rgb(34, 34, 34) 100%);
 }
 
@@ -60,10 +59,50 @@ h3 {
 
 .navbar a {
   color: rgb(224, 224, 224) !important;
+  transition: all 0.3s ease;
 }
 
-a:hover {
-  color: red !important;
+
+/* Spade icon hover effect - More vibrant yellow */
+.navbar-brand img {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-brand:hover img {
+  filter: 
+    brightness(1.2) 
+    sepia(1) 
+    saturate(4) 
+    hue-rotate(-10deg)
+    drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+  transform: scale(1.1);
+}
+
+/* Login/profile icon hover effect - More vibrant yellow */
+.navbar-nav.navbar-right .nav-item img {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-nav.navbar-right .nav-item:hover img {
+  filter: 
+    brightness(1.2) 
+    sepia(1) 
+    saturate(4) 
+    hue-rotate(-10deg)
+    drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+  transform: scale(1.1);
+}
+
+.navbar a {
+  color: rgb(224, 224, 224) !important;
+}
+
+a.btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #f0e769 0%, #ffd700 50%, #f0e769 100%);
+  box-shadow:
+    0 0 15px rgba(165, 165, 165, 0.6),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .card {
@@ -76,8 +115,9 @@ a:hover {
   text-align: left;
   border-spacing: 150px;
 }
+
 .card .btn {
-background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
 }
 
 /* ----------------------------- */
@@ -99,9 +139,9 @@ background-color: rgb(255, 255, 255);
   border: 10px solid #444444;
   border-radius: 50%;
   box-shadow:
-      0 0 25px rgba(255, 255, 255, 0.25),
-      inset 0 0 20px rgba(0, 0, 0, 0.6),
-      0 0 10px rgba(255, 255, 255, 0.3);
+    0 0 25px rgba(255, 255, 255, 0.25),
+    inset 0 0 20px rgba(0, 0, 0, 0.6),
+    0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 /* ----------------------------- */
@@ -140,13 +180,15 @@ background-color: rgb(255, 255, 255);
   height: 0;
   border-top: 22px solid transparent;
   border-bottom: 22px solid transparent;
-  border-right: 35px solid rgb(204, 204, 204);
+  border-right: 35px solid #fce357;
   
+
   position: absolute;
   top: 41%;
-  right: -25px; /* Position on the right side */
+  right: -25px;
+  /* Position on the right side */
   transform: translateY(-50%);
-  
+
   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6));
   z-index: 50;
 }
@@ -169,8 +211,8 @@ background-color: rgb(255, 255, 255);
   font-size: 22px;
 
   box-shadow:
-      0 0 10px rgba(255, 255, 255, 0.4),
-      inset 0 0 5px rgba(255, 255, 255, 0.2);
+    0 0 10px rgba(255, 255, 255, 0.4),
+    inset 0 0 5px rgba(255, 255, 255, 0.2);
 
   transition: 0.25s ease;
 }
@@ -179,8 +221,8 @@ background-color: rgb(255, 255, 255);
   transform: scale(1.05);
   background: linear-gradient(90deg, #f0e769 0%, #ffd700 50%, #f0e769 100%);
   box-shadow:
-      0 0 15px rgba(165, 165, 165, 0.6),
-      inset 0 0 10px rgba(255, 255, 255, 0.3);
+    0 0 15px rgba(165, 165, 165, 0.6),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 #spinBtn:active {
@@ -199,7 +241,8 @@ background-color: rgb(255, 255, 255);
   border: 1px solid #666;
 }
 
-.modal-header, .modal-footer {
+.modal-header,
+.modal-footer {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -207,15 +250,17 @@ background-color: rgb(255, 255, 255);
   background-color: #7a7a7a !important;
   border: none;
 }
+
 .btn-secondary:hover {
   background-color: #8d8d8d !important;
 }
+
 /* ----------------------------- */
 /*         SLICK MODAL           */
 /* ----------------------------- */
 
 .modal-content {
-  background: linear-gradient(135deg, #979797 0%, #474747 100%);
+  background: linear-gradient(135deg, #707070 0%, #474747 100%);
   color: white;
   border-radius: 20px;
   border: 1px solid #444;
@@ -264,6 +309,314 @@ background-color: rgb(255, 255, 255);
 }
 
 /* Remove default modal borders and backgrounds */
-.modal-header, .modal-footer {
+.modal-header,
+.modal-footer {
   display: none;
+}
+
+/* ----------------------------- */
+/*        MAIN PAGE STYLES       */
+/* ----------------------------- */
+
+/* Hero Section */
+.hero-main {
+  padding: 80px 0;
+  text-align: center;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-title span {
+  color: #ffd700;
+  position: relative;
+}
+
+.hero-title span::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+
+.hero-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-cta-btn {
+  display: inline-block;
+  padding: 15px 50px;
+  background: linear-gradient(135deg, #8a8a8a 0%, #bdbdbd 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.hero-cta-btn:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(135deg, #f0e769 0%, #ffd700 100%);
+  box-shadow: 0 15px 30px rgba(255, 215, 0, 0.2);
+  color: #333;
+}
+
+/* Featured Games Section */
+.featured-games {
+  padding: 80px 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  color: #aaa;
+  margin-bottom: 3rem;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #8a8a8a, #ffd700);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.game-card:hover::before {
+  opacity: 1;
+}
+
+.game-card.featured {
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.game-icon-wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  padding: 20px;
+}
+
+.game-icon {
+  width: 60px;
+  height: 60px;
+  filter: brightness(0) invert(1);
+}
+
+.game-card:hover .game-icon {
+  filter: brightness(0) invert(0.9) sepia(1) saturate(5) hue-rotate(-10deg);
+}
+
+.game-info {
+  margin-top: 20px;
+}
+
+.game-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.game-description {
+  font-family: 'Poppins', sans-serif;
+  color: #aaa;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.play-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.play-btn:hover {
+  background: linear-gradient(135deg, #8a8a8a 0%, #bdbdbd 100%);
+  color: #fff;
+  transform: translateY(-2px);
+  border-color: transparent;
+}
+
+/* Stats Section */
+.site-stats {
+  padding: 60px 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 30px 20px;
+}
+
+.stat-number {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-family: 'Poppins', sans-serif;
+  color: #aaa;
+  font-size: 1rem;
+}
+
+/* Footer */
+.main-footer {
+  margin-top: auto;
+  padding: 40px 0;
+  background: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #aaa;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ffd700;
+}
+
+.footer-copyright {
+  color: #777;
+  margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-warning {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .games-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+  
+  .stats-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-links {
+    gap: 15px;
+  }
 }
