@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request# type: ignore
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -8,45 +8,40 @@ def home():
 
 @app.route("/about") 
 def about(): 
-
- return render_template("about.html") 
+    return render_template("about.html") 
 
 @app.route("/login") 
 def login(): 
+    return render_template("login.html") 
 
- return render_template("login.html") 
+@app.route("/confirmed-login") 
+def confirmed_login(): 
+    # Get email from URL parameters, default to "Player"
+    email = request.args.get('email', 'Player')
+    return render_template("confirmed-login.html", email=email)
 
 @app.route("/wheelspin") 
 def wheelspin(): 
-
- return render_template("wheelspin.html") 
+    return render_template("wheelspin.html") 
 
 @app.route("/roulette") 
 def roulette(): 
-
- return render_template("roulette.html") 
+    return render_template("roulette.html") 
 
 @app.route("/slots") 
 def slots(): 
-
- return render_template("slots.html") 
+    return render_template("slots.html") 
 
 @app.route("/blackjack") 
 def blackjack(): 
-
- return render_template("blackjack.html") 
-
+    return render_template("blackjack.html") 
 
 @app.route('/submit', methods=["POST"]) 
-
 def submit(): 
-
-    username = request.form['fname'] 
-
-    message = request.form['lname'] 
-
-    return f"You are successfully logged on {username} "
+    # Get the email from the form
+    email = request.form['email']
+    # Just pass the email to the confirmation page
+    return redirect(url_for('confirmed_login', email=email))
 
 if __name__ == "__main__":
     app.run(debug=True)
-

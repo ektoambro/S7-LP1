@@ -8,80 +8,128 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gambling.org</title>
   <link rel="icon" type="image/x-icon" href="static/pictures/win.png">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
   <nav class="navbar navbar-expand">
-
     <div class="container-fluid">
-
       <a class="navbar-brand" href="/">
-        <img src="static/pictures/spades.png" alt="GmblngORG" width="45" height="45"> </a>
-
+        <img src="static/pictures/spades.png" alt="GmblngORG" width="45" height="45">
+      </a>
       <div class="navbar-collapse">
-
         <ul class="navbar-nav me-auto">
-
-
           <li class="nav-item">
-
             <a class="nav-link" href="/about">About</a>
-
           </li>
-
+          <li class="nav-item">
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="nav-item">
             <a class="nav-link" href="/login">
-              <img src="static/pictures/profil.png" alt="GmblngORG" width="35" height="35"> </a>
-
+              <img src="static/pictures/profil.png" alt="GmblngORG" width="35" height="35">
+            </a>
           </li>
         </ul>
       </div>
-
     </div>
-
   </nav>
 
-
-  <h1>Evil Genius of Gambling.org</h1>
-
-
-
-    <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
-    <div class="card text-center mx-4" style="width: 18rem;">
-      <img src="static/pictures/lottery.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Spin The Wheel</h5>
-        <a href="/wheelspin" class="btn">Play</a>
+  <!-- HERO SECTION -->
+  <section class="hero-main">
+    <div class="container">
+      <div class="hero-content text-center">
+        <h1 class="hero-title"><span>EVIL GENIUS OF GAMBLING.ORG</span></h1>
+          <p class="hero-subtitle">"Im not finished"</p>
+        <a href="/login" class="hero-cta-btn">Log In to play</a>
       </div>
     </div>
-  
-    <div class="card text-center mx-4" style="width: 18rem;">
-      <img src="static/pictures/roulette-wheel.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Roulette</h5>
-        <a href="/roulette" class="btn">Play</a>
-      </div>
-    </div>
+  </section>
 
-    <div class="card text-center mx-4" style="width: 18rem;">
-      <img src="static/pictures/poker-cards.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Blackjack</h5>
-        <a href="/blackjack" class="btn">Play</a>
-      </div>
-    </div>
+  <!-- FEATURED GAMES SECTION -->
+  <section class="featured-games">
+    <div class="container">
+      <h2 class="section-title">Featured Games</h2>
+      <p class="section-subtitle">Games available on our website</p>
+      
+      <div class="games-grid">
+        <!-- Wheel Spin Card -->
+        <div class="game-card featured">
+          <div class="game-icon-wrapper">
+            <img src="static/pictures/lottery.png" class="game-icon" alt="Wheel Spin">
+          </div>
+          <div class="game-info">
+            <h3 class="game-name">Spin The Wheel</h3>
+            <p class="game-description">Spin and win big !</p>
+            <a href="/wheelspin" class="play-btn">PLAY NOW</a>
+          </div>
+        </div>
 
-      <div class="card text-center mx-4" style="width: 18rem;">
-      <img src="static/pictures/slot-machine.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Slots</h5>
-        <a href="/slots" class="btn">Play</a>
+        <!-- Roulette Card -->
+        <div class="game-card">
+          <div class="game-icon-wrapper">
+            <img src="static/pictures/roulette-wheel.png" class="game-icon" alt="Roulette">
+          </div>
+          <div class="game-info">
+            <h3 class="game-name">Roulette</h3>
+            <p class="game-description">Trust the marble</p>
+            <a href="/roulette" class="play-btn">Coming Soon !</a>
+          </div>
+        </div>
+
+        <!-- Blackjack Card -->
+        <div class="game-card">
+          <div class="game-icon-wrapper">
+            <img src="static/pictures/poker-cards.png" class="game-icon" alt="Blackjack">
+          </div>
+          <div class="game-info">
+            <h3 class="game-name">Blackjack</h3>
+            <p class="game-description">Beat the dealer to 21</p>
+            <a href="/blackjack" class="play-btn">Coming Soon !</a>
+          </div>
+        </div>
+
+        <!-- Slots Card -->
+        <div class="game-card">
+          <div class="game-icon-wrapper">
+            <img src="static/pictures/slot-machine.png" class="game-icon" alt="Slots">
+          </div>
+          <div class="game-info">
+            <h3 class="game-name">Slots</h3>
+            <p class="game-description">Crank the slots </p>
+            <a href="/slots" class="play-btn">Coming Soon !</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section class="site-stats">
+    <div class="container">
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Players This Week</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2€</div>
+          <div class="stat-label">Won This Week</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Satisfaction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1</div>
+          <div class="stat-label">Playable Games</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="main-footer">
@@ -101,12 +149,11 @@
           © 2024 Evil Genius of Gambling.org. All rights reserved.
         </div>
         <div class="footer-warning">
-          Gambling can be addictive. Play responsibly.
+          99% of gamblers quit before they win big ! Try again !
         </div>
       </div>
     </div>
   </footer>
-
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
