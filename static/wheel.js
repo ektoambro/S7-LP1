@@ -137,3 +137,93 @@ drawWheel();
 
 document.getElementById("spinBtn").addEventListener("click", spin);
 
+// Add this at the beginning of wheel.js, after the segments array
+let adminMode = false;
+let adminPassword = "gamblingadmin2024"; // Change this to your preferred password
+let adminOdds = [...segments.map(() => 1/segments.length)]; // Equal probability initially
+
+// Alternative: Simple custom modal without Bootstrap
+function showAdminPanel() {
+    if (!adminMode) {
+        alert("Admin mode not activated!");
+        return;
+    }
+    
+    // Remove existing modal if any
+    const existingModal = document.getElementById('customAdminModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    const modalHTML = `
+        <div id="customAdminModal" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        ">
+            <div style="
+                background: #2c2c2c;
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                max-width: 600px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                border: 2px solid #ffd700;
+            ">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>🎰 Wheel Spin Admin Panel</h3>
+                    <button onclick="closeCustomAdminModal()" style="
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 24px;
+                        cursor: pointer;
+                    ">×</button>
+                </div>
+                
+                <div id="oddsDisplay"></div>
+                <div id="oddsControls" style="margin: 20px 0;"></div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button onclick="saveOddsCustom()" style="
+                        background: #ffd700;
+                        color: black;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        margin: 0 10px;
+                        cursor: pointer;
+                    ">Save Odds</button>
+                    <button onclick="closeCustomAdminModal()" style="
+                        background: #666;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        margin: 0 10px;
+                        cursor: pointer;
+                    ">Close</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    renderOddsControls(); // You'll need to update renderOddsControls to work without Bootstrap
+}
+
+function closeCustomAdminModal() {
+    const modal = document.getElementById('customAdminModal');
+    if (modal) {
+        modal.remove();
+    }
+}

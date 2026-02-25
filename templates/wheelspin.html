@@ -70,6 +70,24 @@
   </div>
 </div>
 
+<!-- Hidden Admin Access -->
+<div id="adminAccess" style="position: fixed; bottom: 10px; left: 10px; opacity: 0.1;">
+    <button onclick="toggleAdminMode()" class="btn btn-sm btn-dark">⚙️</button>
+</div>
+
+<script>
+function toggleAdminMode() {
+    const password = prompt('Enter admin password:');
+    if (password === 'gamblingadmin2024') { // Match the password in wheel.js
+        if (typeof showAdminPanel === 'function') {
+            showAdminPanel();
+        }
+    } else {
+        alert('Incorrect password!');
+    }
+}
+</script>
+
 <script src="{{ url_for('static', filename='wheel.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Confetti Library -->
