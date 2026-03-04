@@ -6,6 +6,7 @@ from flask_bcrypt import Bcrypt
 app = Flask(__name__) 
 
 app.secret_key = 'k573U@ge#%RyQ@DoTe5' 
+bcrypt = Bcrypt(app)
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
@@ -32,13 +33,16 @@ def UserRegister():
     if not data:
         return jsonify({"status" : "error", "message": "invalid payload"})
     
+    LastName = data.get('LastName')
+    FirstName = data.get('FirstName')
+
     Mail = data.get('Mail')     # change and add more as needed. 
     Password = data.get('Password')
-    
+    PasswordHash = bcrypt.generate_password_hash(Password).decode('utf-8') 
     try:
         instance = conn.cursor()
-        instance.execute('INSERT INTO users (id,last_name,first_name,email,password_hash,created_at) VALUES (%s, %s)', 
-                        (Mail, Password))
+        instance.execute('INSERT INTO users (last_name,first_name,email,password_hash) VALUES (%s, %s, %s, %s)', 
+                        (LastName, FirstName, Mail, PasswordHash))
         conn.commit()
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
@@ -56,8 +60,9 @@ def about():
 def login(): 
     return render_template("login.html") 
 
-@app.route("/confirmed-login") 
-def confirmed_login(): 
+@app.route("/register") 
+def register(): 
+    return render_template("register.html") 
     
  # Get email from URL parameters, default to "Player"
     email = request.args.get('email', 'Player')

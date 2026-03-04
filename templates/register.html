@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register - Gambling.org</title>
+  <link rel="icon" type="image/x-icon" href="static/pictures/profil.png">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="login-page">
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="static/pictures/spades.png" alt="Gambling.org Logo" width="45" height="45">
+      </a>
+      <div class="navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item">
+            <a class="nav-link" href="/login">
+              <img src="static/pictures/profil.png" alt="Profile" width="35" height="35">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- REGISTER SECTION -->
+  <main class="login-container">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <!-- REGISTER CARD -->
+          <div class="login-card">
+            <!-- CARD HEADER -->
+            <div class="login-card-header">
+              <div class="login-icon-wrapper">
+                <img src="static/pictures/profil.png" alt="Register Icon" class="login-icon">
+              </div>
+              <h1 class="login-title">Create Account</h1>
+              <p class="login-subtitle">Join Gambling.org today</p>
+            </div>
+
+            <!-- REGISTER FORM -->
+            <form action="/api/register_user" method="POST" class="login-form">
+              <!-- NAME FIELDS - Two columns -->
+              <div class="name-fields">
+                <div class="form-group">
+                  <label for="firstName" class="form-label">
+                    <span class="label-icon">👤</span> First Name
+                  </label>
+                  <div class="input-group">
+                    <input type="text" id="firstName" name="FirstName" class="form-input" 
+                           placeholder="John" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="lastName" class="form-label">
+                    <span class="label-icon">👤</span> Last Name
+                  </label>
+                  <div class="input-group">
+                    <input type="text" id="lastName" name="LastName" class="form-input" 
+                           placeholder="Doe" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EMAIL INPUT -->
+              <div class="form-group">
+                <label for="email" class="form-label">
+                  <span class="label-icon">📧</span> Email Address
+                </label>
+                <div class="input-group">
+                  <input type="email" id="email" name="Mail" class="form-input" 
+                         placeholder="Enter your email" required>
+                </div>
+              </div>
+
+              <!-- PASSWORD INPUT -->
+              <div class="form-group">
+                <label for="password" class="form-label">
+                  <span class="label-icon">🔒</span> Password
+                </label>
+                <div class="input-group">
+                  <input type="password" id="password" name="Password" class="form-input" 
+                         placeholder="Create a password" required>
+                </div>
+                
+                <!-- Password Requirements -->
+                <div class="password-requirements">
+                  <div class="requirement-item" id="req-length">
+                    <span class="requirement-icon">○</span>
+                    <span>At least 8 characters</span>
+                  </div>
+                  <div class="requirement-item" id="req-uppercase">
+                    <span class="requirement-icon">○</span>
+                    <span>One uppercase letter</span>
+                  </div>
+                  <div class="requirement-item" id="req-lowercase">
+                    <span class="requirement-icon">○</span>
+                    <span>One lowercase letter</span>
+                  </div>
+                  <div class="requirement-item" id="req-number">
+                    <span class="requirement-icon">○</span>
+                    <span>One number</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CONFIRM PASSWORD INPUT -->
+              <div class="form-group">
+                <label for="confirmPassword" class="form-label">
+                  <span class="label-icon">🔒</span> Confirm Password
+                </label>
+                <div class="input-group">
+                  <input type="password" id="confirmPassword" class="form-input" 
+                         placeholder="Confirm your password" required>
+                </div>
+              </div>
+
+              <!-- TERMS CHECKBOX -->
+              <div class="form-options terms-checkbox">
+                <input type="checkbox" id="terms" class="terms-input" required>
+                <label for="terms" class="terms-label">
+                  I agree to the <a href="/terms" class="terms-link">Terms of Service</a> and 
+                  <a href="/privacy" class="terms-link">Privacy Policy</a>
+                </label>
+              </div>
+
+              <!-- SUBMIT BUTTON -->
+              <button type="submit" class="login-submit-btn" id="registerBtn" disabled>
+                <span class="btn-text">Create Account</span>
+                <span class="btn-icon">→</span>
+              </button>
+            </form>
+
+            <!-- DIVIDER -->
+            <div class="divider">
+              <span>OR</span>
+            </div>
+
+            <!-- LOGIN LINK -->
+            <div class="login-link">
+              <p>Already have an account? <a href="/login">Sign In</a></p>
+            </div>
+
+            <!-- SECURITY NOTE -->
+            <div class="security-note">
+              <p>🔒 By creating an account, you agree to our gambling terms. 99% of gamblers quit before they win big!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="static/pictures/spades.png" width="30" height="30">
+          <span>Gambling.org</span>
+        </div>
+        <div class="footer-links">
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+        </div>
+        <div class="footer-copyright">
+          © 2024 Evil Genius of Gambling.org. All rights reserved.
+        </div>
+        <div class="footer-warning">
+          99% of gamblers quit before they win big ! Try again !
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Password validation script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirmPassword');
+      const registerBtn = document.getElementById('registerBtn');
+      const termsCheckbox = document.getElementById('terms');
+      
+      // Requirement elements
+      const reqLength = document.getElementById('req-length');
+      const reqUppercase = document.getElementById('req-uppercase');
+      const reqLowercase = document.getElementById('req-lowercase');
+      const reqNumber = document.getElementById('req-number');
+      
+      function validatePassword() {
+        const pass = password.value;
+        
+        // Check requirements
+        const hasLength = pass.length >= 8;
+        const hasUppercase = /[A-Z]/.test(pass);
+        const hasLowercase = /[a-z]/.test(pass);
+        const hasNumber = /[0-9]/.test(pass);
+        
+        // Update requirement styling
+        updateRequirement(reqLength, hasLength);
+        updateRequirement(reqUppercase, hasUppercase);
+        updateRequirement(reqLowercase, hasLowercase);
+        updateRequirement(reqNumber, hasNumber);
+        
+        // Check if passwords match and all requirements are met
+        const passwordsMatch = pass === confirmPassword.value && pass !== '';
+        const allRequirementsMet = hasLength && hasUppercase && hasLowercase && hasNumber;
+        
+        // Enable/disable register button
+        registerBtn.disabled = !(allRequirementsMet && passwordsMatch && termsCheckbox.checked);
+        
+        return allRequirementsMet && passwordsMatch;
+      }
+      
+      function updateRequirement(element, isValid) {
+        if (isValid) {
+          element.classList.add('valid');
+          element.classList.remove('invalid');
+          element.querySelector('.requirement-icon').textContent = '✓';
+        } else {
+          element.classList.add('invalid');
+          element.classList.remove('valid');
+          element.querySelector('.requirement-icon').textContent = '○';
+        }
+      }
+      
+      password.addEventListener('input', validatePassword);
+      confirmPassword.addEventListener('input', validatePassword);
+      termsCheckbox.addEventListener('change', validatePassword);
+      
+      // Form submission validation
+      document.querySelector('form').addEventListener('submit', function(e) {
+        if (!validatePassword()) {
+          e.preventDefault();
+          alert('Please meet all password requirements and ensure passwords match.');
+        }
+      });
+    });
+  </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='login.js') }}"></script>  <!-- Add this line -->
+</body>
+
+</html>
