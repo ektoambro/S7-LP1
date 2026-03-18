@@ -100,34 +100,50 @@ conn = pymysql.connect(
   cursorclass=pymysql.cursors.DictCursor
 )
 
-# starting with /api/ is not required, but it can be nice to separate human-readable pages from pages that are there to use the DB
-@app.route("/api/get_all_users")
-def getAllUsers():
-    instance = conn.cursor()                    # starts an instance of the connection
-    instance.execute('SELECT * FROM users')     # runs the "select all columns" query
-    return jsonify(instance.fetchall())         # transforms the result in the JSON data format and returns all rows
+def authenticate(email, password): 
 
-@app.route("/api/insert_user", methods=['GET'])
-def insertUserGET():
-    data = request.args
+        instance = conn.cursor() 
+
+        instance.execute("SELECT id, password_hash FROM users WHERE email = %s", (email,)) 
+
+        conn.commit() 
+
+        if (instance.rowcount == 0): 
+
+                return None 
+
+        result = instance.fetchone() 
+
+        if bcrypt.check_password_hash(result['password_hash'], password): 
+
+                return result['id'] 
+
+        else: 
+
+                return None 
+
+
+ 
+@app.route("/api/login_user", methods=['POST'])
+def insertTODO():
+    data = request.form
     if not data:
-        return jsonify({"status": "error", "message": "Invalid arguments"})
-    if not 'email' in data: 
-        return jsonify({"status": "error", "message": "Missing email"})  
-    if not 'last_name' in data: 
-        return jsonify({"status": "error", "message": "Missing Last Name"})
-    if not 'first_name' in data: 
-        return jsonify({"status": "error", "message": "Missing First Name"})  
-    lastName = data.get('last_name')
-    firstName = data.get('first_name')
-    email = data.get('email')
-
-    instance = conn.cursor()
-    instance.execute('INSERT INTO users (last_name, first_name, email) VALUES (%s, %s, %s)', 
-                     (lastName, firstName, email))
-    conn.commit()
-    newID = instance.lastrowid
-    return jsonify({"status": "created", "id": newID})
+        return jsonify({"status" : "error", "message": "invalid payload"})
+    
+    Mail = data.get('Mail')     # change and add more as needed. 
+    Password = data.get('Password')
+    
+    Result = authenticate (Mail, Password)
+    if Result == None : 
+        return jsonify({"status": "error", "message": "Wrong Password or Email used"})
+    else : 
+        user = User()
+        user.id = Result
+        flask_login.login_user(user)
+        return jsonify({"status": "success", "message": "Login successful!"})
+        
+    return jsonify({"status": "error", "message": str(e)})
+    return jsonify({"status": "success", "message": "Insert successful!"})
 
 @app.route("/api/get_all_scores", methods=['GET'])
 def GetAllScore():
