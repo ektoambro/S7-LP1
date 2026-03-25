@@ -1,7 +1,5 @@
 python -m venv venv
 CALL venv\Scripts\activate.bat
-pip install flask pymysql
-pip install flask_login
-pip install flask_bcrypt
+pip install flask pymysql flask_bcrypt flask_login cryptography
 python app.py
 pause

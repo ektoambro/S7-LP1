@@ -84,12 +84,46 @@ def slots():
 def blackjack(): 
     return render_template("blackjack.html") 
 
-@app.route('/submit', methods=["POST"]) 
+ 
+
+def authenticate(email, password): 
+
+    instance = conn.cursor() 
+
+    instance.execute("SELECT id, password_hash FROM users WHERE email = %s", (email,)) 
+
+    conn.commit() 
+
+    if (instance.rowcount == 0): 
+
+            return None 
+
+    result = instance.fetchone() 
+
+    if bcrypt.check_password_hash(result['password_hash'], password): 
+
+            return result['id'] 
+
+    else: 
+
+                return None 
+
+@app.route('/Confirmed', methods=["POST"]) 
 def submit(): 
     # Get the email from the form
-    email = request.form['email']
-    # Just pass the email to the confirmation page
-    return redirect(url_for('confirmed_login', email=email))
+    email = request.form['email'] 
+    password =request.form['password']
+    auth = authenticate (email, password)  
+    if auth == None :
+         return jsonify({
+            'status': 'Unsucessful : Login information might be wrong'})
+    else :
+        user = User()
+        user.id = auth
+        flask_login.login_user(user)
+        return jsonify({
+        'status': 'success'})
+
 
 # creates the connection to the DB. If the DB is not running, this will crash your server! (add a # to commment it out in that case)
 conn = pymysql.connect(
