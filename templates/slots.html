@@ -1,37 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slots - Gambling.org</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/win.png') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
 <body>
-     <nav class="navbar navbar-expand">
+    {% include 'navbar.html' %}
 
-    <div class="container-fluid">
-
-      <a class="navbar-brand" href="/">
-        <img src="static/pictures/spades.png" alt="GmblngORG" width="45" height="45"> </a>
-
-      <div class="navbar-collapse">
-
-        <ul class="navbar-nav me-auto">
-
-
-          <li class="nav-item">
-
-            <a class="nav-link" href="/about">About</a>
+    <div class="slots-wrapper">
+        <div class="slot-machine">
+            <h2 class="slot-title">🎰 SLOT MACHINE</h2>
             
-          </li>
+            <div class="reels">
+                <div class="reel" id="reel1">🍒</div>
+                <div class="reel" id="reel2">🍒</div>
+                <div class="reel" id="reel3">🍒</div>
+            </div>
 
-        </ul>
-<ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-<a class="nav-link" href="/login">
-<img src="static/pictures/profil.png" alt="GmblngORG" width="35" height="35"> </a>
+            <div class="controls">
+                <div class="bet-selector">
+                    <span>Mise :</span>
+                    <span id="betDisplay">10€</span>
+                    <div class="bet-buttons">
+                        <button class="bet-btn" data-bet="5">5€</button>
+                        <button class="bet-btn active" data-bet="10">10€</button>
+                        <button class="bet-btn" data-bet="20">20€</button>
+                        <button class="bet-btn" data-bet="50">50€</button>
+                    </div>
+                </div>
+                
+                <button class="spin-button" id="spinButton">SPIN</button>
+                
+                <div class="result" id="result"></div>
+            </div>
 
-</li>
-</ul>
-      </div>
-
+            <div class="payouts">
+                <div><span>🍒🍒🍒</span> x5</div>
+                <div><span>🍋🍋🍋</span> x10</div>
+                <div><span>🍊🍊🍊</span> x15</div>
+                <div><span>💎💎💎</span> x25</div>
+                <div><span>7️⃣7️⃣7️⃣</span> x100</div>
+            </div>
+        </div>
     </div>
 
-  </nav>
+    {% include 'footer.html' %}
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="{{ url_for('static', filename='slots.js') }}"></script>
+</body>
+</html>

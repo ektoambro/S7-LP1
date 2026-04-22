@@ -87,3 +87,22 @@ function updatePasswordStrengthIndicator(strength) {
     // You can implement this to show password strength visually
     console.log('Password strength:', strength);
 }
+
+// register.js (extrait modifié)
+try {
+    const response = await fetch('/api/register_user', {
+        method: 'POST',
+        body: formData
+    });
+    const data = await response.json();
+    
+    if (response.ok && data.status === 'success') {
+        window.location.href = '/register-success';  // Page de confirmation
+    } else {
+        alert('Échec de l\'inscription : ' + (data.message || 'Erreur inconnue'));
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }
+} catch (error) {
+    // ...
+}

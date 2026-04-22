@@ -1558,3 +1558,212 @@ transform: translateY(-5px);
 .form-input:valid:not(:placeholder-shown) {
   border-color: #4caf50;
 }
+
+/* Style pour le bouton SPIN désactivé */
+#spinBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: linear-gradient(90deg, #666 0%, #888 50%, #666 100%);
+    transform: none;
+    box-shadow: none;
+}
+
+#spinBtn:disabled:hover {
+    transform: none;
+    background: linear-gradient(90deg, #666 0%, #888 50%, #666 100%);
+    box-shadow: none;
+}
+
+/* ==================== */
+/*       SLOTS          */
+/* ==================== */
+
+.slots-wrapper {
+    min-height: calc(100vh - 160px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.slot-machine {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-radius: 30px;
+    padding: 40px;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    max-width: 550px;
+    width: 100%;
+}
+
+.slot-title {
+    color: #ffd700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.reels {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.reel {
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    border: 3px solid #ffd700;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.1s ease;
+}
+
+.reel.spinning {
+    animation: reelBlink 0.1s linear infinite;
+    border-color: #fff;
+}
+
+@keyframes reelBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.bet-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+#betDisplay {
+    color: #ffd700;
+    font-weight: 700;
+    font-size: 1.3rem;
+    min-width: 50px;
+}
+
+.bet-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.bet-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bet-btn:hover {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: rgba(255, 215, 0, 0.4);
+}
+
+.bet-btn.active {
+    background: #ffd700;
+    color: #1a1a1a;
+    border-color: #ffd700;
+}
+
+.spin-button {
+    background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+    color: #1a1a1a;
+    border: none;
+    padding: 15px 50px;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.spin-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+.spin-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #888 0%, #666 100%);
+    box-shadow: none;
+}
+
+.result {
+    min-height: 40px;
+    text-align: center;
+}
+
+.result.win {
+    color: #4caf50;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    animation: winPop 0.5s ease;
+}
+
+.result.lose {
+    color: #f44336;
+    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes winPop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.payouts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px 25px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.payouts div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #aaa;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+}
+
+.payouts div span {
+    color: #ffd700;
+    font-weight: 600;
+}
+
+@media (max-width: 500px) {
+    .slot-machine { padding: 25px; }
+    .reel { width: 90px; height: 90px; font-size: 3rem; }
+    .slot-title { font-size: 1.5rem; }
+    .bet-selector { flex-wrap: wrap; justify-content: center; }
+}

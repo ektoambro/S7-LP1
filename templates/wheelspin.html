@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spin The Wheel</title>
+    <title>Spin The Wheel - Gambling.org</title>
 
-    <link rel="icon" type="image/x-icon" href="static/pictures/win.png">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/win.png') }}">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,41 +19,17 @@
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand">
-    <div class="container-fluid">
-
-        <a class="navbar-brand" href="/">
-            <img src="static/pictures/spades.png" width="45" height="45">
-        </a>
-
-        <div class="navbar-collapse">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">
-                        <img src="static/pictures/profil.png" width="35" height="35">
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- NAVBAR DYNAMIQUE AVEC SOLDE -->
+{% include 'navbar.html' %}
 
 <!-- WHEEL SECTION -->
 <div class="wheel-container">
     <div class="pointer"></div>
     <canvas id="wheel" width="500" height="500"></canvas>
-    <!-- Add this centered icon -->
     <div class="wheel-center-icon">
-        <img src="static/pictures/spades.png" alt="Wheel Center">
+        <img src="{{ url_for('static', filename='pictures/spades.png') }}" alt="Wheel Center">
     </div>
-    <button id="spinBtn">SPIN</button>
+    <button id="spinBtn">SPIN (10€)</button>
 </div>
 
 <!-- MODAL -->
@@ -61,24 +37,80 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body text-center p-4">
-        <div class="result-icon">💸</div>
-        <h4 class="result-title mt-3">Congratulations!</h4>
+        <div class="result-icon" id="resultEmoji">💸</div>
+        <h4 class="result-title mt-3" id="modalTitle">Résultat !</h4>
         <p class="result-text" id="resultText"></p>
-        <button type="button" class="btn btn-close-modal mt-3" data-bs-dismiss="modal">Continue</button>
+        <button type="button" class="btn btn-close-modal mt-3" data-bs-dismiss="modal">Continuer</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Hidden Admin Access -->
-<div id="adminAccess" style="position: fixed; bottom: 10px; left: 10px; opacity: 0.1;">
-    <button onclick="toggleAdminMode()" class="btn btn-sm btn-dark">⚙️</button>
-</div>
+<!-- FOOTER -->
+{% include 'footer.html' %}
 
 <script>
+// Variable globale pour le solde
+let currentBalance = {{ balance|default(0) }};
+
+// Fonction pour mettre à jour l'affichage du solde dans la navbar
+function updateBalanceDisplay(newBalance) {
+    const balanceElement = document.getElementById('navbarBalance');
+    if (balanceElement) {
+        balanceElement.classList.add('updating');
+        balanceElement.textContent = `${parseFloat(newBalance).toFixed(2)}€`;
+        setTimeout(() => {
+            balanceElement.classList.remove('updating');
+        }, 600);
+    }
+    currentBalance = newBalance;
+}
+
+// Fonction pour récupérer le solde actuel
+async function getCurrentBalance() {
+    try {
+        const response = await fetch('/api/get_balance');
+        const data = await response.json();
+        if (data.status === 'success') {
+            currentBalance = data.balance;
+            updateBalanceDisplay(data.balance);
+            return data.balance;
+        }
+    } catch (error) {
+        console.error('Erreur récupération solde:', error);
+    }
+    return currentBalance;
+}
+
+// Fonction pour mettre à jour le solde sur le serveur
+async function updateServerBalance(amount, game, type) {
+    try {
+        const response = await fetch('/api/update_balance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                amount: amount,
+                game: game,
+                type: type
+            })
+        });
+        const data = await response.json();
+        if (data.status === 'success') {
+            updateBalanceDisplay(data.new_balance);
+            return data.new_balance;
+        }
+    } catch (error) {
+        console.error('Erreur mise à jour solde:', error);
+    }
+    return null;
+}
+
+// Admin access (caché)
 function toggleAdminMode() {
     const password = prompt('Enter admin password:');
-    if (password === 'gamblingadmin2024') { // Match the password in wheel.js
+    if (password === 'gamblingadmin2024') {
         if (typeof showAdminPanel === 'function') {
             showAdminPanel();
         }
@@ -93,7 +125,10 @@ function toggleAdminMode() {
 <!-- Confetti Library -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-<script src="{{ url_for('static', filename='wheel.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Admin Access (caché) -->
+<div id="adminAccess" style="position: fixed; bottom: 10px; left: 10px; opacity: 0.1;">
+    <button onclick="toggleAdminMode()" class="btn btn-sm btn-dark">⚙️</button>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,194 @@
+<nav class="navbar navbar-expand">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='pictures/spades.png') }}" width="45" height="45" alt="Gambling.org">
+        </a>
+        <div class="navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                </li>
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('wheelspin') }}">Games</a>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="navbar-nav align-items-center">
+                {% if current_user.is_authenticated %}
+                    <!-- Affichage du solde dans la navbar -->
+                    <li class="nav-item me-3">
+                        <div class="balance-display" id="navbarBalanceContainer">
+                            <span class="balance-icon">💰</span>
+                            <span class="balance-amount" id="navbarBalance">
+                                {{ "%.2f"|format(current_user.balance) }}€
+                            </span>
+                        </div>
+                    </li>
+                    <!-- Menu utilisateur avec lien vers dashboard -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ url_for('static', filename='pictures/profil.png') }}" width="35" height="35" alt="Profile">
+                            <span class="ms-2">{{ current_user.first_name }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('dashboard') }}">
+                                    <span class="me-2">📊</span> Tableau de bord
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="{{ url_for('logout') }}">
+                                    <span class="me-2">🚪</span> Déconnexion
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}">
+                            <img src="{{ url_for('static', filename='pictures/profil.png') }}" width="35" height="35" alt="Login">
+                            <span class="ms-2">Connexion</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<style>
+/* Style pour l'affichage du solde dans la navbar */
+.balance-display {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.08));
+    padding: 8px 18px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.balance-display:hover {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.12));
+    transform: scale(1.02);
+    border-color: rgba(255, 215, 0, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15);
+}
+
+.balance-icon {
+    font-size: 1.3rem;
+    margin-right: 10px;
+}
+
+.balance-amount {
+    color: #ffd700;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.balance-amount.updating {
+    animation: balanceUpdate 0.6s ease;
+}
+
+@keyframes balanceUpdate {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.15); color: #4caf50; }
+    70% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Dropdown amélioré */
+.dropdown-menu {
+    background: rgba(40, 40, 40, 0.98);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 12px;
+    padding: 8px 0;
+    margin-top: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item {
+    color: #e0e0e0;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 215, 0, 0.15);
+    color: #ffd700;
+}
+
+.dropdown-item.text-danger:hover {
+    background: rgba(220, 53, 69, 0.15);
+    color: #ff6b6b;
+}
+
+.dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+}
+
+/* Avatar dans la navbar */
+.nav-link img {
+    border-radius: 50%;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover img {
+    border-color: #ffd700;
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .balance-display {
+        padding: 6px 12px;
+    }
+    .balance-amount {
+        font-size: 1rem;
+    }
+    .nav-link span {
+        display: none;
+    }
+}
+</style>
+
+<script>
+// Fonction pour mettre à jour le solde dans la navbar (appelée depuis les jeux)
+function updateNavbarBalance(newBalance) {
+    const balanceElement = document.getElementById('navbarBalance');
+    if (balanceElement) {
+        balanceElement.classList.add('updating');
+        balanceElement.textContent = `${parseFloat(newBalance).toFixed(2)}€`;
+        setTimeout(() => {
+            balanceElement.classList.remove('updating');
+        }, 600);
+    }
+}
+
+// Rafraîchir le solde périodiquement (optionnel)
+if (document.getElementById('navbarBalance')) {
+    setInterval(async () => {
+        try {
+            const response = await fetch('/api/get_balance');
+            const data = await response.json();
+            if (data.status === 'success') {
+                const currentBalance = parseFloat(document.getElementById('navbarBalance').textContent);
+                if (Math.abs(currentBalance - data.balance) > 0.01) {
+                    updateNavbarBalance(data.balance);
+                }
+            }
+        } catch (error) {
+            console.error('Erreur rafraîchissement solde:', error);
+        }
+    }, 30000); // Toutes les 30 secondes
+}
+</script>

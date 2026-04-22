@@ -1,25 +1,24 @@
-document.getElementById('LoginForm')?.addEventListener('submit', (event) => {
-        event.preventDefault(); // this prevents the standard action that is taken when certain things happen. 
-                                // Forms automatically send stuff to the server when submitted, and redirect to a new page.
-                                // We don't want that.
-
-        let form = document.getElementById('LoginForm');
-        let formData = new FormData(form);                   // find the form, and transform the data inside of it.
-
-        fetch('/Confirmed', {
+// login.js
+document.getElementById('LoginForm')?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    const form = document.getElementById('LoginForm');
+    const formData = new FormData(form);
+    
+    try {
+        const response = await fetch('/api/login_user', {
             method: 'POST',
-            body: formData,
-        }) 
-        .then(response => response.json())
-        .then(data => {
-            if (data.status == 'success') {
-              console.log(data.status);
-            }
-            else {
-              console.error(data.message);
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        })
-    });
+            body: formData
+        });
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            window.location.href = data.redirect; // Redirection vers page de succès
+        } else {
+            alert(data.message || 'Échec de la connexion');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Une erreur est survenue.');
+    }
+});
