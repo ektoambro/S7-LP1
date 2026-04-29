@@ -114,7 +114,7 @@ async function spin() {
     
     const balance = await getCurrentBalance();
     if (balance < currentBet) {
-        alert(`Solde insuffisant ! Vous avez ${balance.toFixed(2)}€.`);
+        alert(`Insufficient balance! You have ${balance.toFixed(2)}€.`);
         return;
     }
     
@@ -142,7 +142,7 @@ async function spin() {
         resultDiv.className = 'result win';
         if (winAmount >= currentBet * 25) triggerConfetti();
     } else {
-        resultDiv.innerHTML = 'Perdu...';
+        resultDiv.innerHTML = 'Lost...';
         resultDiv.className = 'result lose';
     }
     

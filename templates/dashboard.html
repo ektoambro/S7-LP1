@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tableau de bord - Gambling.org</title>
+    <title>Dashboard - Gambling.org</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/win.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,52 +14,53 @@
 
     <main class="dashboard-container">
         <div class="container py-5">
-            <!-- En-tête -->
+            
+            <!-- ========== HEADER ========== -->
             <div class="dashboard-header text-center mb-5">
                 <h1 class="dashboard-title">
-                    Bienvenue, <span class="text-gold">{{ user.first_name }} {{ user.last_name }}</span>
+                    Welcome, <span class="text-gold">{{ user.first_name }} {{ user.last_name }}</span>
                 </h1>
-                <p class="dashboard-subtitle">Voici votre tableau de bord personnel</p>
+                <p class="dashboard-subtitle">Your personal dashboard</p>
             </div>
 
-            <!-- Cartes de statistiques -->
+            <!-- ========== STATISTICS CARDS ========== -->
             <div class="row g-4 mb-5">
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-icon">💰</div>
                         <div class="stat-value">{{ "%.2f"|format(stats.balance) }}€</div>
-                        <div class="stat-label">Solde actuel</div>
+                        <div class="stat-label">Current Balance</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="stat-card">
                         <div class="stat-icon">🎮</div>
                         <div class="stat-value">{{ stats.total_games or 0 }}</div>
-                        <div class="stat-label">Parties jouées</div>
+                        <div class="stat-label">Games Played</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="stat-card win">
                         <div class="stat-icon">📈</div>
                         <div class="stat-value text-success">{{ "%.2f"|format(stats.total_wins or 0) }}€</div>
-                        <div class="stat-label">Total gains</div>
+                        <div class="stat-label">Total Winnings</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">
                     <div class="stat-card loss">
                         <div class="stat-icon">📉</div>
                         <div class="stat-value text-danger">{{ "%.2f"|format(stats.total_losses or 0) }}€</div>
-                        <div class="stat-label">Total pertes</div>
+                        <div class="stat-label">Total Losses</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Profit Net -->
+            <!-- ========== NET PROFIT ========== -->
             <div class="net-profit-card mb-5">
                 {% set net = (stats.total_wins or 0) - (stats.total_losses or 0) %}
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h3 class="net-profit-title">Profit Net</h3>
+                        <h3 class="net-profit-title">Net Profit</h3>
                     </div>
                     <div class="col-md-6 text-md-end">
                         <span class="net-profit-value {{ 'positive' if net >= 0 else 'negative' }}">
@@ -69,75 +70,123 @@
                 </div>
             </div>
 
-            <!-- Informations du compte -->
+            <!-- ========== LOAD FUNDS CARD ========== -->
+            <div class="load-funds-card mb-5">
+                <h3 class="card-section-title">💳 Load Funds</h3>
+                <p class="load-description">Add funds to your account instantly</p>
+                
+                <!-- Preset Amounts -->
+                <div class="preset-amounts">
+                    <button class="preset-amount-btn" data-amount="10">
+                        <span class="preset-icon">💵</span>
+                        <span class="preset-value">10€</span>
+                    </button>
+                    <button class="preset-amount-btn" data-amount="20">
+                        <span class="preset-icon">💵</span>
+                        <span class="preset-value">20€</span>
+                    </button>
+                    <button class="preset-amount-btn" data-amount="50">
+                        <span class="preset-icon">💰</span>
+                        <span class="preset-value">50€</span>
+                    </button>
+                    <button class="preset-amount-btn" data-amount="100">
+                        <span class="preset-icon">💰</span>
+                        <span class="preset-value">100€</span>
+                    </button>
+                    <button class="preset-amount-btn" data-amount="500">
+                        <span class="preset-icon">💎</span>
+                        <span class="preset-value">500€</span>
+                    </button>
+                </div>
+                
+                <!-- Custom Amount -->
+                <div class="custom-amount-wrapper">
+                    <div class="custom-amount-label">Custom Amount</div>
+                    <div class="custom-amount-input-group">
+                        <input type="number" id="customAmount" class="custom-amount-input" 
+                               placeholder="Enter amount" min="1" max="10000" step="0.01">
+                        <button id="loadCustomBtn" class="load-custom-btn">
+                            <span class="btn-icon">💳</span>
+                            <span>Load Funds</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="loadMessage" class="load-message"></div>
+            </div>
+
+            <!-- ========== ACCOUNT INFORMATION ========== -->
             <div class="account-info-card mb-5">
-                <h3 class="card-section-title">📋 Informations du compte</h3>
+                <h3 class="card-section-title">📋 Account Information</h3>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="info-item">
-                            <span class="info-label">Email :</span>
+                            <span class="info-label">Email:</span>
                             <span class="info-value">{{ user.email }}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="info-item">
-                            <span class="info-label">Nom complet :</span>
+                            <span class="info-label">Full Name:</span>
                             <span class="info-value">{{ user.first_name }} {{ user.last_name }}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="info-item">
-                            <span class="info-label">Membre depuis :</span>
+                            <span class="info-label">Member Since:</span>
                             <span class="info-value">2024</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="info-item">
-                            <span class="info-label">Statut :</span>
+                            <span class="info-label">Status:</span>
                             <span class="info-value">
-                                <span class="badge bg-success">Actif</span>
+                                <span class="badge bg-success">Active</span>
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Historique des transactions -->
+            <!-- ========== TRANSACTION HISTORY ========== -->
             <div class="transactions-card">
-                <h3 class="card-section-title">📜 Historique des transactions</h3>
+                <h3 class="card-section-title">📜 Transaction History</h3>
                 {% if transactions %}
                 <div class="table-responsive">
                     <table class="transactions-table">
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Jeu</th>
+                                <th>Game</th>
                                 <th>Type</th>
-                                <th>Montant</th>
+                                <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for t in transactions %}
                             <tr>
-                                <td>{{ t.created_at.strftime('%d/%m/%Y %H:%M') }}</td>
+                                <td>{{ t.created_at.strftime('%m/%d/%Y %H:%M') }}</td>
                                 <td>
-                                    {% if t.game == 'wheelspin' %}🎡 Roue
+                                    {% if t.game == 'wheelspin' %}🎡 Wheel
                                     {% elif t.game == 'roulette' %}🎯 Roulette
                                     {% elif t.game == 'blackjack' %}🃏 Blackjack
                                     {% elif t.game == 'slots' %}🎰 Slots
+                                    {% elif t.game == 'deposit' %}💳 Deposit
                                     {% else %}🎮 {{ t.game }}
                                     {% endif %}
                                 </td>
                                 <td>
                                     {% if t.type == 'win' %}
-                                    <span class="badge bg-success">Gain</span>
+                                    <span class="badge bg-success">Win</span>
                                     {% elif t.type == 'loss' %}
-                                    <span class="badge bg-danger">Perte</span>
+                                    <span class="badge bg-danger">Loss</span>
+                                    {% elif t.type == 'bonus' %}
+                                    <span class="badge bg-info">Deposit</span>
                                     {% else %}
-                                    <span class="badge bg-info">Bonus</span>
+                                    <span class="badge bg-secondary">{{ t.type }}</span>
                                     {% endif %}
                                 </td>
-                                <td class="{{ 'text-success' if t.type == 'win' else 'text-danger' if t.type == 'loss' else 'text-info' }}">
+                                <td class="{{ 'text-success' if t.type == 'win' or t.type == 'bonus' else 'text-danger' if t.type == 'loss' else 'text-info' }}">
                                     {{ '+' if t.type == 'win' or t.type == 'bonus' else '-' }}{{ "%.2f"|format(t.amount) }}€
                                 </td>
                             </tr>
@@ -148,259 +197,182 @@
                 {% else %}
                 <div class="empty-state">
                     <div class="empty-icon">📭</div>
-                    <p>Aucune transaction pour le moment.</p>
-                    <a href="{{ url_for('wheelspin') }}" class="btn btn-primary mt-3">Commencer à jouer</a>
+                    <p>No transactions yet.</p>
+                    <a href="{{ url_for('wheelspin') }}" class="btn btn-primary mt-3">Start Playing</a>
                 </div>
                 {% endif %}
             </div>
 
-            <!-- Actions rapides -->
+            <!-- ========== QUICK ACTIONS ========== -->
             <div class="quick-actions-section mt-5">
-                <h3 class="card-section-title">⚡ Actions rapides</h3>
+                <h3 class="card-section-title">⚡ Quick Actions</h3>
                 <div class="action-grid">
                     <a href="{{ url_for('wheelspin') }}" class="quick-action-btn">
                         <span class="action-icon">🎡</span>
-                        <span>Roue de la fortune</span>
+                        <span>Wheel of Fortune</span>
+                    </a>
+                    <a href="{{ url_for('slots') }}" class="quick-action-btn">
+                        <span class="action-icon">🎰</span>
+                        <span>Slots</span>
                     </a>
                     <a href="{{ url_for('home') }}" class="quick-action-btn">
                         <span class="action-icon">🏠</span>
-                        <span>Accueil</span>
+                        <span>Home</span>
                     </a>
                     <a href="{{ url_for('logout') }}" class="quick-action-btn logout">
                         <span class="action-icon">🚪</span>
-                        <span>Déconnexion</span>
+                        <span>Logout</span>
                     </a>
                 </div>
             </div>
+
         </div>
     </main>
 
+    <!-- ========== LOAD FUNDS CONFIRMATION MODAL ========== -->
+    <div class="modal fade" id="loadConfirmationModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content load-modal-content">
+                <div class="modal-body text-center p-4">
+                    <div class="load-success-icon">✅</div>
+                    <h4 class="load-success-title">Funds Loaded!</h4>
+                    <p class="load-success-text" id="loadSuccessText"></p>
+                    <p class="load-new-balance" id="loadNewBalance"></p>
+                    <button type="button" class="btn btn-close-modal mt-3" data-bs-dismiss="modal">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% include 'footer.html' %}
 
-    <style>
-    .dashboard-container {
-        min-height: calc(100vh - 200px);
-        padding: 40px 0;
-    }
-
-    .dashboard-title {
-        color: white;
-        font-family: 'Poppins', sans-serif;
-        font-size: 2.5rem;
-        font-weight: 700;
-    }
-
-    .text-gold {
-        color: #ffd700;
-    }
-
-    .dashboard-subtitle {
-        color: #aaa;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.1rem;
-    }
-
-    /* Cartes de statistiques */
-    .stat-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 25px 15px;
-        text-align: center;
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        border-color: rgba(255, 215, 0, 0.3);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .stat-icon {
-        font-size: 2.5rem;
-        margin-bottom: 15px;
-    }
-
-    .stat-value {
-        font-family: 'Poppins', sans-serif;
-        font-size: 2rem;
-        font-weight: 700;
-        color: #ffd700;
-        margin-bottom: 5px;
-    }
-
-    .stat-label {
-        color: #aaa;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    /* Profit Net */
-    .net-profit-card {
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.05));
-        border: 1px solid rgba(255, 215, 0, 0.2);
-        border-radius: 20px;
-        padding: 25px 30px;
-    }
-
-    .net-profit-title {
-        color: white;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.5rem;
-        margin: 0;
-    }
-
-    .net-profit-value {
-        font-family: 'Poppins', sans-serif;
-        font-size: 2.5rem;
-        font-weight: 700;
-    }
-
-    .net-profit-value.positive {
-        color: #4caf50;
-    }
-
-    .net-profit-value.negative {
-        color: #f44336;
-    }
-
-    /* Cartes d'information */
-    .account-info-card, .transactions-card {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 30px;
-        backdrop-filter: blur(10px);
-    }
-
-    .card-section-title {
-        color: #ffd700;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.3rem;
-        margin-bottom: 25px;
-    }
-
-    .info-item {
-        margin-bottom: 15px;
-    }
-
-    .info-label {
-        color: #aaa;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.9rem;
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .info-value {
-        color: white;
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.1rem;
-    }
-
-    /* Table des transactions */
-    .transactions-table {
-        width: 100%;
-        color: white;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .transactions-table th {
-        color: #ffd700;
-        font-weight: 500;
-        padding: 15px 10px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .transactions-table td {
-        padding: 12px 10px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .transactions-table tbody tr:hover {
-        background: rgba(255, 255, 255, 0.03);
-    }
-
-    /* État vide */
-    .empty-state {
-        text-align: center;
-        padding: 40px;
-    }
-
-    .empty-icon {
-        font-size: 4rem;
-        margin-bottom: 20px;
-        opacity: 0.5;
-    }
-
-    .empty-state p {
-        color: #aaa;
-        font-family: 'Poppins', sans-serif;
-    }
-
-    /* Actions rapides */
-    .action-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-    }
-
-    .quick-action-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 18px 25px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 15px;
-        color: white;
-        text-decoration: none;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-
-    .quick-action-btn:hover {
-        background: rgba(255, 215, 0, 0.1);
-        border-color: #ffd700;
-        color: #ffd700;
-        transform: translateY(-3px);
-    }
-
-    .quick-action-btn.logout:hover {
-        background: rgba(244, 67, 54, 0.1);
-        border-color: #f44336;
-        color: #f44336;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .dashboard-title {
-            font-size: 1.8rem;
-        }
-        
-        .stat-card {
-            padding: 15px 10px;
-        }
-        
-        .stat-value {
-            font-size: 1.5rem;
-        }
-        
-        .net-profit-value {
-            font-size: 1.8rem;
-        }
-        
-        .account-info-card, .transactions-card {
-            padding: 20px;
-        }
-    }
-    </style>
-
+    <!-- ========== SCRIPTS ========== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    // ========== LOAD FUNDS FUNCTIONALITY ==========
+    document.addEventListener('DOMContentLoaded', function() {
+        const presetButtons = document.querySelectorAll('.preset-amount-btn');
+        const customAmountInput = document.getElementById('customAmount');
+        const loadCustomBtn = document.getElementById('loadCustomBtn');
+        const loadMessage = document.getElementById('loadMessage');
+        let selectedAmount = null;
+        
+        // Preset amount selection
+        presetButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Deselect all
+                presetButtons.forEach(b => b.classList.remove('selected'));
+                // Select clicked
+                this.classList.add('selected');
+                selectedAmount = parseFloat(this.dataset.amount);
+                customAmountInput.value = '';
+                // Load immediately
+                loadFunds(selectedAmount);
+            });
+        });
+        
+        // Custom amount load
+        loadCustomBtn.addEventListener('click', function() {
+            const amount = parseFloat(customAmountInput.value);
+            
+            if (!amount || amount <= 0) {
+                showMessage('Please enter a valid amount', 'error');
+                return;
+            }
+            
+            if (amount > 10000) {
+                showMessage('Maximum load amount is 10,000€', 'error');
+                return;
+            }
+            
+            presetButtons.forEach(b => b.classList.remove('selected'));
+            selectedAmount = null;
+            loadFunds(amount);
+        });
+        
+        // Enter key in custom input
+        customAmountInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadCustomBtn.click();
+            }
+        });
+        
+        // Main load funds function
+        async function loadFunds(amount) {
+            setButtonsDisabled(true);
+            showMessage(`Loading ${amount.toFixed(2)}€...`, 'loading');
+            
+            try {
+                const response = await fetch('/api/load_funds', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: amount })
+                });
+                
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Update confirmation modal
+                    document.getElementById('loadSuccessText').textContent = 
+                        `Successfully loaded ${amount.toFixed(2)}€ to your account`;
+                    document.getElementById('loadNewBalance').textContent = 
+                        `New Balance: ${data.new_balance.toFixed(2)}€`;
+                    
+                    // Show modal
+                    const modal = new bootstrap.Modal(document.getElementById('loadConfirmationModal'));
+                    modal.show();
+                    
+                    // Update navbar balance
+                    if (typeof updateNavbarBalance === 'function') {
+                        updateNavbarBalance(data.new_balance);
+                    }
+                    
+                    // Update dashboard balance stat
+                    const balanceElement = document.querySelector('.stat-card .stat-value');
+                    if (balanceElement) {
+                        balanceElement.textContent = `${data.new_balance.toFixed(2)}€`;
+                    }
+                    
+                    // Clear inputs
+                    showMessage('', '');
+                    customAmountInput.value = '';
+                    selectedAmount = null;
+                    presetButtons.forEach(b => b.classList.remove('selected'));
+                    
+                    // Reload page when modal closes
+                    document.getElementById('loadConfirmationModal').addEventListener('hidden.bs.modal', function() {
+                        location.reload();
+                    }, { once: true });
+                    
+                } else {
+                    showMessage(data.message || 'Failed to load funds', 'error');
+                }
+            } catch (error) {
+                console.error('Error loading funds:', error);
+                showMessage('An error occurred. Please try again.', 'error');
+            } finally {
+                setButtonsDisabled(false);
+            }
+        }
+        
+        // Helper functions
+        function showMessage(message, type) {
+            loadMessage.textContent = message;
+            loadMessage.className = 'load-message';
+            if (type) loadMessage.classList.add(type);
+        }
+        
+        function setButtonsDisabled(disabled) {
+            presetButtons.forEach(b => {
+                b.disabled = disabled;
+                b.style.opacity = disabled ? '0.5' : '1';
+            });
+            loadCustomBtn.disabled = disabled;
+            loadCustomBtn.style.opacity = disabled ? '0.5' : '1';
+            customAmountInput.disabled = disabled;
+        }
+    });
+    </script>
 </body>
 </html>

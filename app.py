@@ -185,6 +185,60 @@ def blackjack():
     balance = get_user_balance(flask_login.current_user.id)
     return render_template("blackjack.html", balance=balance)
 
+# ---------- API Load Funds ----------
+@app.route("/api/load_funds", methods=['POST'])
+@flask_login.login_required
+def api_load_funds():
+    """
+    Ajoute des fonds au compte de l'utilisateur
+    Attend un JSON: {"amount": 50.00}
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"status": "error", "message": "Invalid payload"}), 400
+        
+        amount = float(data.get('amount', 0))
+        
+        if amount <= 0:
+            return jsonify({"status": "error", "message": "Amount must be positive"}), 400
+        
+        if amount > 10000:
+            return jsonify({"status": "error", "message": "Maximum load amount is 10,000€"}), 400
+        
+        user_id = flask_login.current_user.id
+        
+        # Update balance
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute(
+            'UPDATE users SET balance = balance + %s WHERE id = %s',
+            (amount, user_id)
+        )
+        
+        # Record transaction as bonus/deposit
+        cursor.execute(
+            'INSERT INTO transactions (user_id, amount, type, game) VALUES (%s, %s, %s, %s)',
+            (user_id, amount, 'bonus', 'deposit')
+        )
+        
+        conn.commit()
+        cursor.close()
+        
+        new_balance = get_user_balance(user_id)
+        
+        return jsonify({
+            "status": "success",
+            "message": f"Successfully loaded {amount:.2f}€",
+            "new_balance": new_balance
+        })
+    except ValueError:
+        return jsonify({"status": "error", "message": "Invalid amount"}), 400
+    except Exception as e:
+        print(f"Error loading funds: {e}")
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 # ---------- Dashboard ----------
 @app.route("/dashboard")
 @flask_login.login_required

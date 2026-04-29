@@ -1,23 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackjack - Gambling.org</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='pictures/win.png') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
 <body>
+    {% include 'navbar.html' %}
 
-{% include 'navbar.html' %}
-  
-<ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-<a class="nav-link" href="/login">
-<img src="static/pictures/profil.png" alt="GmblngORG" width="35" height="35"> </a>
-
-</li>
-</ul>
-      </div>
-
+    <div class="container text-center mt-5">
+        <div class="game-card featured mx-auto" style="max-width: 500px;">
+            <div class="game-icon-wrapper">
+                <img src="{{ url_for('static', filename='pictures/poker-cards.png') }}" class="game-icon" alt="Blackjack">
+            </div>
+            <h2 class="text-white mt-3">🃏 Blackjack</h2>
+            <p class="text-light">Coming Soon!</p>
+            <p class="text-warning">The blackjack game is under development.</p>
+            <a href="{{ url_for('home') }}" class="play-btn mt-3">Back to Home</a>
+        </div>
     </div>
 
-  </nav>
-
-    <h1></h1>
+    {% include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
